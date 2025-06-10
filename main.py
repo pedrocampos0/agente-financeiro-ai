@@ -1,5 +1,7 @@
-from playwright.sync_api import sync_playwright, Page, Browser
+import json
+import requests
 import pandas as pd
+from playwright.sync_api import sync_playwright, Page, Browser
 
 
 class FinancialAgent:
@@ -54,3 +56,6 @@ if __name__ == "__main__":
     infomoney_ibovespa_url = "https://www.infomoney.com.br/cotacoes/b3/indice/ibovespa/"
     with FinancialAgent(headless=True) as agent:
         df_altas, df_baixas = agent.extrair_altas_e_baixas(infomoney_ibovespa_url)
+        df_all = pd.concat([df_baixas, df_altas], ignore_index=True)
+
+    print(df_altas, df_baixas, df_all)
